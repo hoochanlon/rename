@@ -1,15 +1,16 @@
-# Rename - 在线文件批量重命名工具
+# rename - "online file renaming tool"
 
 <img src="./src/assets/icon256.ico" width="64" alt="icon"/>
 
-## 批量重命名工具
+## link
 
 * source repo：https://github.com/JasonGrass/rename
 * source link：https://rename.jgrass.xyz
+* fork deploy link: https://renameweb.zeabur.app
 
-## 部署方式
+## usage
 
-本地 
+**local**
 
 ```
 npm install
@@ -17,4 +18,6 @@ npm run build
 npm run dev
 ```
 
-zeabur，点点点
+**zeabur**
+
+click，click，click
