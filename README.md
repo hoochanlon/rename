@@ -9,7 +9,7 @@
 
 ## link
 
-ork deploy link: https://renameweb.zeabur.app
+fork deploy link: https://renameweb.zeabur.app
 
 ## usage
 
