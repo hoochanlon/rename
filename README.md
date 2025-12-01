@@ -9,7 +9,10 @@
 
 ## link
 
-fork deploy link: https://renameweb.zeabur.app
+fork deploy link:
+
+* https://rename.hoochanlon.moe
+* https://renameweb.zeabur.app
 
 ## deploy
 
