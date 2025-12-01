@@ -32,4 +32,6 @@ click，click，click
 
 `<date.modify:YYYY-MMDD-HHmmss>`
 
+btw：if you don't understand chinese, you should translate it into english.
+
 <img width="1356" height="635" alt="Image" src="https://github.com/user-attachments/assets/2cb428fb-e5f8-4acc-8755-56db1ac79dcb" />
