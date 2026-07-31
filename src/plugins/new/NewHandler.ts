@@ -3,6 +3,7 @@ import dayjs from "dayjs"
 
 import RenameHandlerBase from "@/lib/handler/RenameHandlerBase"
 import { importPluginComponent } from "../component"
+import i18n from "@/i18n"
 
 interface INewHandlerOptions {
   pattern: string
@@ -130,7 +131,9 @@ class TimeReplace implements IVariableReplace {
 }
 
 class Handler extends RenameHandlerBase<INewHandlerOptions> implements IRenameHandler {
-  public title: string = "全新命名"
+  public get title(): string {
+    return i18n.global.t('handlers.new')
+  }
   public component: Component = importPluginComponent("new", "NewConfiguration")
   public sortHint = 4
 

@@ -1,12 +1,15 @@
 import RenameHandlerBase from "@/lib/handler/RenameHandlerBase"
 import { importPluginComponent } from "../component"
+import i18n from "@/i18n"
 
 interface IJscodeConfiguration {
   code: string
 }
 
 class Handler extends RenameHandlerBase<IJscodeConfiguration> implements IRenameHandler {
-  public title: string = "自定义 JS"
+  public get title(): string {
+    return i18n.global.t('handlers.jscode')
+  }
   public component: Component = importPluginComponent("jscode", "JscodeConfiguration")
   public sortHint = 101
 

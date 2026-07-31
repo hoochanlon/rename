@@ -40,40 +40,38 @@ const onExpandFoldClick = () => {
 
 <style lang="less" scoped>
 .wrapper {
-    margin: 8px 0;
-    padding: 8px;
-
-    border: 1px solid #eee;
-    border-radius: 4px;
-
+    margin: 10px 0;
+    padding: 12px 14px;
+    border: 1px solid var(--app-border);
+    border-radius: 16px;
+    background: var(--app-surface);
+    box-shadow: var(--app-panel-shadow);
 }
 
 .title {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     user-select: none;
 
     h2 {
-        margin-right: 16px;
-
+        margin-right: 12px;
         font-size: 16px;
-        color: #333;
+        color: var(--app-text);
         font-family: SmileySans, 'Courier New', Courier, monospace;
     }
 
     .el-icon {
-        padding: 2px;
+        padding: 4px;
         font-size: 14px;
-        color: #777;
-        border: 1px solid #eee;
-        border-radius: 12px;
-
+        color: var(--app-muted);
+        border: 1px solid var(--app-border);
+        border-radius: 999px;
+        background: var(--app-surface-elevated);
         cursor: pointer;
     }
-
 }
 
 .content {
-    margin: 8px 0;
+    margin: 10px 0 2px;
 }
 </style>

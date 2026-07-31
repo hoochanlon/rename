@@ -2,6 +2,7 @@ import _ from "lodash"
 
 import RenameHandlerBase from "@/lib/handler/RenameHandlerBase"
 import { importPluginComponent } from "../component"
+import i18n from "@/i18n"
 
 interface IReplaceHandlerOptions {
   position:
@@ -21,7 +22,9 @@ interface IReplaceHandlerOptions {
 }
 
 class Handler extends RenameHandlerBase<IReplaceHandlerOptions> implements IRenameHandler {
-  public title: string = "删除/替换字符"
+  public get title(): string {
+    return i18n.global.t('handlers.replace')
+  }
   public component: Component = importPluginComponent("replace", "ReplaceConfiguration")
   public sortHint = 1
 

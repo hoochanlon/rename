@@ -2,6 +2,9 @@ import { defineStore } from "pinia"
 import { useFilterStore } from "./filters"
 import { calcHash } from "@/utils/file"
 import { ElNotification } from "element-plus"
+import i18n from "@/i18n"
+
+const { t } = i18n.global
 
 export const useFileStore = defineStore("files", () => {
   const filterStore = useFilterStore()
@@ -31,7 +34,7 @@ export const useFileStore = defineStore("files", () => {
         same.size = item.size
 
         // OPT store 中使用 UI
-        ElMessage.warning(`文件已存在 \"${item.name}\"`)
+        ElMessage.warning(t('store.fileExists', { name: item.name }))
       } else {
         files.value.push(item)
         updated = true
@@ -61,7 +64,7 @@ export const useFileStore = defineStore("files", () => {
 
     const invalidName = files.find((f) => !f.isValidName)
     if (invalidName) {
-      throw new Error("重命名拒绝执行，存在非法文件名称")
+      throw new Error(t('store.renameRejected'))
     }
 
     waitRenameCount.value = files.length
@@ -82,7 +85,7 @@ export const useFileStore = defineStore("files", () => {
 
         if (usedNames.has(file.preview)) {
           throw new Error(
-            `重命名拒绝执行，存在重复文件名称 "${file.preview}"；相同名称可能会造成文件被覆盖而丢失`
+            t('store.duplicateFilename', { name: file.preview })
           )
         }
 
@@ -99,8 +102,8 @@ export const useFileStore = defineStore("files", () => {
         failRenameCount.value += 1
         waitRenameCount.value -= 1
         ElNotification({
-          title: "重命名失败",
-          message: `${file.name} 重命名失败. ${file.error}`,
+          title: t('store.renameFailed'),
+          message: t('store.renameFailedDetail', { name: file.name, error: file.error }),
           type: "error",
           duration: 0
         })
@@ -123,7 +126,7 @@ export const useFileStore = defineStore("files", () => {
         console.error(e)
         const message = typeof e === "string" ? e : e instanceof Error ? e.message : `未知错误 ${e}`
         // OPT store 中使用 UI
-        ElMessage.error(`文件 \"${file.name}\" 刷新失败. ${message}`)
+        ElMessage.error(t('store.refreshFailed', { name: file.name, message }))
       }
     }
 

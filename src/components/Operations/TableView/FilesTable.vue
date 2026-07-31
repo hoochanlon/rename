@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="filters">
-      <el-checkbox v-model="isShowFolder" label="显示目录" border />
-      <el-checkbox v-model="isOnlyPreview" label="仅显示预览" border />
-      <el-checkbox v-model="isOnlyEffected" label="仅显示受影响的文件" border />
+      <el-checkbox v-model="isShowFolder" :label="t('table.showFolder')" border />
+      <el-checkbox v-model="isOnlyPreview" :label="t('table.onlyPreview')" border />
+      <el-checkbox v-model="isOnlyEffected" :label="t('table.onlyEffected')" border />
     </div>
 
     <vxe-table
@@ -12,20 +12,20 @@
       max-height="300%"
       stripe
       border="inner"
-      empty-text="尚未加载任何文件"
+      :empty-text="t('table.emptyText')"
       @sort-change="onSortChange"
       :row-class-name="rowClass"
       ref="tableRef">
       <vxe-column
         field="index"
         :formatter="indexFormatter"
-        title="序号"
+        :title="t('table.index')"
         width="60"
         align="center"></vxe-column>
       <vxe-column
         field="name"
         class-name="text-pre"
-        title="文件名"
+        :title="t('table.filename')"
         sortable
         align="left"></vxe-column>
       <!-- <vxe-column field="index" title="index" sortable align="left"></vxe-column> -->
@@ -33,7 +33,7 @@
         :visible="!isOnlyPreview"
         field="modifyTime"
         :formatter="timeFormater"
-        title="修改时间"
+        :title="t('table.modifyTime')"
         width="180"
         sortable
         align="center"></vxe-column>
@@ -43,19 +43,19 @@
         :visible="!isOnlyPreview"
         field="size"
         :formatter="sizeFormatter"
-        title="大小"
+        :title="t('table.size')"
         width="100"
         sortable
         align="center"></vxe-column>
       <vxe-column
         :visible="isShowFolder && !isOnlyPreview"
         field="folder"
-        title="目录"
+        :title="t('table.folder')"
         sortable
         align="right"></vxe-column>
       <vxe-column
         field="preview"
-        title="预览"
+        :title="t('table.preview')"
         sortable
         align="left"
         :class-name="previewCellClass"></vxe-column>
@@ -69,7 +69,9 @@ import { VxeColumnPropTypes } from "vxe-table"
 
 import { useFileStore } from "@/store/files"
 import { storeToRefs } from "pinia"
+import { useI18n } from "vue-i18n"
 
+const { t } = useI18n()
 const fileStore = useFileStore()
 const { filteredFiles } = storeToRefs(fileStore)
 
@@ -175,14 +177,17 @@ watch(data, () => {
 .table {
   min-width: 10%;
   max-width: 99%;
+  border: 1px solid var(--app-border);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--app-surface);
 }
 
 .filters {
-  margin: 4px 0 8px 0;
-
-  .el-checkbox {
-    margin-right: 12px;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 4px 0 10px 0;
 }
 </style>
 
@@ -198,10 +203,24 @@ watch(data, () => {
 }
 
 tr.row-name-changed-color-1 {
-  background-color: #d9ecff !important;
+  background-color: var(--app-table-row-changed-1) !important;
 }
 
 tr.row-name-changed-color-2 {
-  background-color: #c6e2ff !important;
+  background-color: var(--app-table-row-changed-2) !important;
+}
+
+:root[data-theme='dark'] .vxe-table .vxe-header--column,
+:root[data-theme='dark'] .vxe-table .vxe-body--column,
+:root[data-theme='dark'] .vxe-table .vxe-footer--column {
+  background-color: transparent;
+}
+
+:root[data-theme='dark'] .vxe-table .vxe-header--row {
+  background: var(--app-table-header-bg);
+}
+
+:root[data-theme='dark'] .vxe-table .vxe-body--row {
+  background: var(--app-table-row);
 }
 </style>

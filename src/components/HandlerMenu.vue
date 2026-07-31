@@ -1,10 +1,8 @@
 <template>
-  <div>
-
+  <div class="menu-shell">
     <el-menu :default-active="defaultActiveItemId" @select="onMenuSelected">
-
       <Container @drop="onDrop">
-        <Draggable v-for="handler of handlers" :key="handler.id">
+        <Draggable v-for="handler of translatedHandlers" :key="handler.id">
           <el-menu-item :index="handler.id">
             <el-icon>
               <SetUp />
@@ -15,9 +13,7 @@
           </el-menu-item>
         </Draggable>
       </Container>
-
     </el-menu>
-
   </div>
 </template>
 
@@ -25,12 +21,18 @@
 import { Container, Draggable } from "vue3-smooth-dnd";
 
 import { SetUp } from '@element-plus/icons-vue';
+import { useI18n } from 'vue-i18n';
 import HandlerFactory from '@/lib/handler/HandlerFactory';
 import { useRenameHandler } from './Operations/Handlers/handler.flow';
 
+const { t } = useI18n()
 const { debounceRename } = useRenameHandler()
 
 const handlers = ref<IRenameHandler[]>(HandlerFactory.handlers)
+const translatedHandlers = computed(() => handlers.value.map(handler => ({
+  ...handler,
+  title: t(`handlers.${handler.id}`),
+})))
 const defaultActiveItemId = ref("")
 
 const onMenuSelected = (index: string) => {
@@ -84,15 +86,47 @@ const applyDrag = (arr: IRenameHandler[], dragResult: any) => {
 </script>
 
 <style lang="less" scoped>
+.menu-shell {
+  overflow: hidden;
+  border: 1px solid var(--app-border);
+  border-radius: 16px;
+  background: var(--app-surface);
+  box-shadow: var(--app-panel-shadow);
+}
+
+:deep(.el-menu) {
+  border-right: none;
+  background: transparent;
+}
+
+:deep(.el-menu-item) {
+  color: var(--app-menu-text);
+  border-radius: 12px;
+  margin: 6px;
+}
+
+:deep(.el-menu-item:hover) {
+  background: var(--app-menu-hover-bg);
+}
+
+:deep(.el-menu-item.is-active) {
+  background: var(--app-menu-active-bg);
+  color: var(--app-accent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--app-accent) 24%, transparent);
+}
+
+:global(:root[data-theme='dark']) :deep(.el-menu-item) {
+  background: transparent;
+}
+
 .dot {
   position: relative;
   top: -5px;
   left: 3px;
-
   width: 6px;
   height: 6px;
   border-radius: 8px;
   background-color: #67C23A;
-
+  box-shadow: 0 0 0 4px var(--app-success-soft);
 }
 </style>

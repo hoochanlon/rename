@@ -1,5 +1,6 @@
 import RenameHandlerBase from "@/lib/handler/RenameHandlerBase"
 import { importPluginComponent } from "../component"
+import i18n from "@/i18n"
 
 interface IRegexHandlerOptions {
   pattern: string
@@ -7,7 +8,9 @@ interface IRegexHandlerOptions {
 }
 
 class Handler extends RenameHandlerBase<IRegexHandlerOptions> implements IRenameHandler {
-  public title: string = "正则替换"
+  public get title(): string {
+    return i18n.global.t('handlers.regex')
+  }
   public component: Component = importPluginComponent("regex", "RegexConfiguration")
   public sortHint = 100
 

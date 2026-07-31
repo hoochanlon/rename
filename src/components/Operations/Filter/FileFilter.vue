@@ -48,11 +48,11 @@ watch([filterStore.filters, filterStore], () => {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-
+  gap: 10px;
   margin: 12px 0 8px 0;
 }
 
 .display-item {
-  margin-right: 12px;
+  margin-right: 0;
 }
 </style>

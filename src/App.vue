@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import { ElMessageBox } from 'element-plus'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const isMobile = ref(false)
 
 onMounted(() => {
-
   isMobile.value = checkIsMobile();
   if (isMobile.value) {
     return
   }
 
   if (globalThis.location.protocol === "http:" && !globalThis.location.host.includes("localhost")) {
-    ElMessageBox.alert('文件加载相关 API 不支持 HTTP 协议，请使用 HTTPS 协议部署', 'http 协议不兼容', {
-      confirmButtonText: 'OK',
+    ElMessageBox.alert(t('app.httpWarning'), t('app.httpWarningTitle'), {
+      confirmButtonText: t('app.confirmButton'),
     })
     return
   }
@@ -20,8 +21,8 @@ onMounted(() => {
   const f = globalThis.showOpenFilePicker
   const chromeVersion = getChromeVersion()
   if (typeof f !== "function" || chromeVersion < 112) {
-    ElMessageBox.alert('当前浏览器尚未支持相关 API，请使用最新版本的 Edge 或 Chrome 浏览器', '浏览器不兼容', {
-      confirmButtonText: 'OK',
+    ElMessageBox.alert(t('app.browserWarning'), t('app.browserWarningTitle'), {
+      confirmButtonText: t('app.confirmButton'),
     })
   }
 
@@ -42,7 +43,7 @@ function getChromeVersion(): number {
 }
 
 const onGithubClick = () => {
-  globalThis.open("https://github.com/JasonGrass/rename", "_self", "noreferrer")
+  globalThis.open("https://github.com/hoochanlon/rename", "_self", "noreferrer")
 }
 
 </script>
@@ -61,21 +62,25 @@ const onGithubClick = () => {
 
   <div class="app-mobile" v-if="isMobile">
     <img class="logo" src="@/assets/icon256.ico" alt="logo" width="128" height="128">
-    <el-text class="text">文件批量重命名工具</el-text>
-    <el-text class="text">此工具不支持移动端，请在电脑上使用最新版本的 Chrome/Edge 浏览器打开</el-text>
+    <el-text class="text">{{ t('app.mobileTip') }}</el-text>
+    <el-text class="text">{{ t('app.mobileNotSupport') }}</el-text>
     <img class="github" src="@/assets/github.svg" alt="github" width="32" @click="onGithubClick" />
   </div>
 </template>
 
 <style scoped>
 .app {
-  height: calc(100vh - env(safe-area-inset-bottom) - 20px);
+  min-height: 100vh;
+  padding-bottom: 28px;
+  background: var(--app-bg);
 }
 
 .body {
   display: flex;
+  align-items: flex-start;
+  gap: 14px;
   margin-right: 8px;
-  padding-bottom: 20px;
+  padding: 0 8px 20px;
 }
 
 .footer {
@@ -83,42 +88,53 @@ const onGithubClick = () => {
   left: 0;
   right: 0;
   bottom: env(safe-area-inset-bottom);
-  height: 20px;
+  min-height: 28px;
 }
 
 .menu {
   min-width: 180px;
-  margin: 0 12px 0 0;
-
 }
 
 .operation {
-  flex: 1 1 0%
+  flex: 1 1 0%;
 }
 
 .app-mobile {
-  height: 90vh;
-
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  margin: 12px;
+  gap: 8px;
+  margin: 0;
+  padding: 24px;
+  background: var(--app-bg);
+  color: var(--app-text);
 
   .logo {
-    margin: -64px 0 64px 0;
+    margin: 0 0 36px;
+    border-radius: 24px;
+    box-shadow: var(--app-panel-shadow);
   }
 
   .text {
-    margin: 8px 0;
+    max-width: 420px;
     text-align: center;
-
     word-break: keep-all;
+    color: var(--app-muted);
   }
 
   .github {
-    margin-top: 64px;
+    margin-top: 28px;
+    padding: 10px;
+    border-radius: 999px;
+    background: var(--app-surface-elevated);
+    box-shadow: var(--app-panel-shadow);
+    cursor: pointer;
   }
+}
+
+:global(:root[data-theme='dark']) .app-mobile .github {
+  filter: invert(1) brightness(1.15);
 }
 </style>

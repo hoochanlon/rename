@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <el-input v-model="pattern" placeholder="输入全新的命名规则，使用 <> 引用变量，如 <name>，点击右侧 Help 查看帮助（再次点击 Help 隐藏）"></el-input>
+    <el-input v-model="pattern" :placeholder="t('newNameHelp.placeholder')"></el-input>
     <el-button type="primary" @click="onHelpClick">Help</el-button>
   </div>
 
@@ -8,32 +8,28 @@
     <Transition name="help">
       <div class="help-container" v-if="isHelpContentShow">
         <div class="help-content">
-          <h3 class="title">变量定义</h3>
+          <h3 class="title">{{ t('newNameHelp.title') }}</h3>
           <div class="content">
             <span class="content-line">
-              <span class="variable">&lt;name&gt;</span> 原文件名(不含后缀); <span class="variable">&lt;ext&gt;</span> 原后缀名; 可以使用
-              :upper 或 :lower 转换大小写
+              <span class="variable">&lt;name&gt;</span> {{ t('newNameHelp.nameExt').split('; ')[0] }}; <span class="variable">&lt;ext&gt;</span> {{ t('newNameHelp.nameExt').split('; ').slice(1).join('; ') }}
             </span>
             <span class="content-line">
-              <span class="variable">&lt;#:1&gt;</span> 编号,基数为1(默认),固定位数则使用多个 #, 如 <span
-                class="variable">&lt;####&gt;</span>
+              <span class="variable">&lt;#:1&gt;</span> {{ t('newNameHelp.index') }} <span class="variable">&lt;####&gt;</span>
             </span>
             <span class="content-line">
-              <span class="variable">&lt;date&gt;</span>/<span class="variable">&lt;date.now&gt;</span> 当前日期;
-              <span class="variable">&lt;date.modify&gt;</span> 文件最后修改日期
+              <span class="variable">&lt;date&gt;</span>/<span class="variable">&lt;date.now&gt;</span> {{ t('newNameHelp.date').split('; ')[0] }}; <span class="variable">&lt;date.modify&gt;</span> {{ t('newNameHelp.date').split('; ').slice(1).join('; ') }}
             </span>
             <span class="content-line">
-              <span class="variable">&lt;time&gt;</span>/<span class="variable">&lt;time.now&gt;</span> 当前时间;
-              <span class="variable">&lt;time.modify&gt;</span> 文件最后修改时间
+              <span class="variable">&lt;time&gt;</span>/<span class="variable">&lt;time.now&gt;</span> {{ t('newNameHelp.time').split('; ')[0] }}; <span class="variable">&lt;time.modify&gt;</span> {{ t('newNameHelp.time').split('; ').slice(1).join('; ') }}
             </span>
             <span class="content-line">
-              日期和时间可以使用格式化字符串，如 <span class="variable">&lt;date.modify:YYYY-MM-DD&gt;</span> /
-              <span class="variable">&lt;time:HH-mm-ss&gt;</span> <a href="https://day.js.org/docs/zh-CN/display/format"
-                target="_blank" referrerpolicy="no-referrer">文档参考</a>
+              {{ t('newNameHelp.format') }} <span class="variable">&lt;date.modify:YYYY-MM-DD&gt;</span> /
+              <span class="variable">&lt;time:HH-mm-ss&gt;</span> <a href="https://day.js.org/docs/en/display/format"
+                target="_blank" referrerpolicy="no-referrer">{{ t('newNameHelp.docs') }}</a>
             </span>
 
             <span class="content-line">
-              <span class="variable">&lt;uuid:8:upper&gt;</span> 随机字符串，可以使用 :8 指定长度，最长 32，添加 :upper 可以转换成大写
+              <span class="variable">&lt;uuid:8:upper&gt;</span> {{ t('newNameHelp.uuid') }}
             </span>
           </div>
         </div>
@@ -44,6 +40,9 @@
 </template>
 
 <script lang="ts" setup>
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 const pattern = ref("")
 const isHelpContentShow = ref(false)
 

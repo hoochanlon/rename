@@ -1,53 +1,56 @@
 <template>
   <div class="postion-select">
-    <el-select v-model="position" placeholder="删除/替换字符的位置">
-      <el-option v-for="item in positionOptions" :key="item.value" :label="item.label" :value="item.value" />
+    <el-select v-model="position" :placeholder="t('pluginOptions.replacePosition')">
+      <el-option v-for="item in positionOptions" :key="item.value" :label="t(item.label)" :value="item.value" />
     </el-select>
 
     <el-input-number v-show='["nCharAfterIndexM", "nCharBeforeIndexM"].includes(position)' style="width: 220px;"
-      v-model="postionIndex" :min="0" placeholder="设置 M 的取值"></el-input-number>
+      v-model="postionIndex" :min="0" :placeholder="t('pluginOptions.setM')"></el-input-number>
 
     <el-input v-show='["string", "allAfterStr", "allBeforeStr", "nAfterStr", "nBeforeStr"].includes(position)'
-      style="width: 360px;" v-model="postionStr" placeholder="设置字符串 XX 的取值"></el-input>
+      style="width: 360px;" v-model="postionStr" :placeholder="t('pluginOptions.setXX')"></el-input>
 
     <el-input-number
       v-show='["frontN", "behindN", "nCharAfterIndexM", "nCharBeforeIndexM", "nAfterStr", "nBeforeStr"].includes(position)'
-      style="width: 220px;" v-model="strLengh" :min="0" placeholder="设置 N 的取值"></el-input-number>
+      style="width: 220px;" v-model="strLengh" :min="0" :placeholder="t('pluginOptions.setN')"></el-input-number>
   </div>
-  <el-input class="insert-text" v-model="insertText" placeholder="新字符串（如果是删除，则这里留空）"></el-input>
+  <el-input class="insert-text" v-model="insertText" :placeholder="t('pluginOptions.newString')"></el-input>
 </template>
 
 <script lang="ts" setup>
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const positionOptions = [{
-  label: "指定字符串 XX",
+  label: "pluginOptions.exactString",
   value: "string"
 }, {
-  label: "前 N 个字符",
+  label: "pluginOptions.frontN",
   value: "frontN"
 }, {
-  label: "后 N 个字符",
+  label: "pluginOptions.behindN",
   value: "behindN"
 }, {
-  label: "第 M 位置后的 N 个字符",
+  label: "pluginOptions.nCharAfterIndexM",
   value: "nCharAfterIndexM"
 }, {
-  label: "倒数 M 位置前的 N 个字符",
+  label: "pluginOptions.nCharBeforeIndexM",
   value: "nCharBeforeIndexM"
 },
 {
-  label: "XX 字符串后面的所有字符",
+  label: "pluginOptions.allAfterStr",
   value: "allAfterStr"
 },
 {
-  label: "XX 字符串前面的所有字符",
+  label: "pluginOptions.allBeforeStr",
   value: "allBeforeStr"
 }, {
-  label: "XX 字符串后面的 N 个字符",
+  label: "pluginOptions.nAfterStr",
   value: "nAfterStr"
 },
 {
-  label: "XX 字符串前面的 N 个字符",
+  label: "pluginOptions.nBeforeStr",
   value: "nBeforeStr"
 }]
 

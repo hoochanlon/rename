@@ -2,6 +2,7 @@ import _ from "lodash"
 
 import RenameHandlerBase from "@/lib/handler/RenameHandlerBase"
 import { importPluginComponent } from "../component"
+import i18n from "@/i18n"
 
 import xNumber from "./xNumber.js"
 
@@ -20,7 +21,9 @@ interface IInsertHandlerOptions {
 }
 
 class Handler extends RenameHandlerBase<IInsertHandlerOptions> implements IRenameHandler {
-  public title: string = "新增/插入字符"
+  public get title(): string {
+    return i18n.global.t('handlers.insert')
+  }
   public component: Component = importPluginComponent("insert", "InsertConfiguration")
   public sortHint = 2
 

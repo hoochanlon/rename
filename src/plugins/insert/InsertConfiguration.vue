@@ -2,86 +2,89 @@
   <div>
 
     <div class="postion-select">
-      <el-select v-model="position" placeholder="插入字符的位置">
-        <el-option v-for="item in positionOptions" :key="item.value" :label="item.label" :value="item.value" />
+      <el-select v-model="position" :placeholder="t('pluginOptions.insertPosition')">
+        <el-option v-for="item in positionOptions" :key="item.value" :label="t(item.label)" :value="item.value" />
       </el-select>
       <el-input-number v-show='position === "afterIndexN" || position === "beforeIndexN"' style="width: 220px;"
-        v-model="postionIndex" :min="0" placeholder="设置 N 的取值"></el-input-number>
+        v-model="postionIndex" :min="0" :placeholder="t('pluginOptions.setN')"></el-input-number>
       <el-input v-show='position === "afterStr" || position === "beforeStr"' style="width: 360px;" v-model="postionStr"
-        placeholder="设置字符串 XX 的取值"></el-input>
+        :placeholder="t('pluginOptions.setXX')"></el-input>
     </div>
 
     <div style="margin:12px 0">
       <el-radio-group v-model="intertContentType">
-        <el-radio-button label="text">文本</el-radio-button>
-        <el-radio-button label="index">序号</el-radio-button>
+        <el-radio-button label="text">{{ t('pluginOptions.text') }}</el-radio-button>
+        <el-radio-button label="index">{{ t('pluginOptions.index') }}</el-radio-button>
       </el-radio-group>
     </div>
 
     <el-input style="max-width: 800px;" v-show='intertContentType === "text"' v-model="insertText"
-      placeholder="插入的文本内容"></el-input>
+      :placeholder="t('pluginOptions.insertText')"></el-input>
 
     <div class="insert-index-wrapper" v-show='intertContentType === "index"'>
-      <el-input style="max-width: 240px;" v-model="insertIndexPreText" placeholder="序号前面的文本"></el-input>
+      <el-input style="max-width: 240px;" v-model="insertIndexPreText" :placeholder="t('pluginOptions.beforeIndexText')"></el-input>
       <span class="insert-index-type-wrapper">
 
-        <el-tooltip content="开始序号" placement="top">
-          <el-input-number v-model="insertIndexBaseNumber" controls-position="right" placeholder="开始序号" />
+        <el-tooltip :content="t('pluginOptions.startIndex')" placement="top">
+          <el-input-number v-model="insertIndexBaseNumber" controls-position="right" :placeholder="t('pluginOptions.startIndex')" />
         </el-tooltip>
 
-        <el-select v-model="insertIndexNumberType" placeholder="序号类型">
-          <el-option v-for="item in insertContentTypeOptions" :key="item.value" :label="item.label" :value="item.value" />
+        <el-select v-model="insertIndexNumberType" :placeholder="t('pluginOptions.indexType')">
+          <el-option v-for="item in insertContentTypeOptions" :key="item.value" :label="t(item.label)" :value="item.value" />
         </el-select>
 
-        <el-tooltip content="固定位数" placement="right">
+        <el-tooltip :content="t('pluginOptions.fixedDigits')" placement="right">
           <el-input-number v-model="insertIndexDigitPadding" :min="1" :max="10" controls-position="right"
-            placeholder="固定位数" v-show='insertIndexNumberType === "digit"' />
+            :placeholder="t('pluginOptions.fixedDigits')" v-show='insertIndexNumberType === "digit"' />
         </el-tooltip>
 
       </span>
-      <el-input style="max-width: 240px;" v-model="insertIndexAfterText" placeholder="序号后面的文本"></el-input>
+      <el-input style="max-width: 240px;" v-model="insertIndexAfterText" :placeholder="t('pluginOptions.afterIndexText')"></el-input>
     </div>
 
   </div>
 </template>
 
 <script lang="ts" setup>
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const positionOptions = [{
-  label: "开始位置",
+  label: "pluginOptions.begin",
   value: "begin"
 }, {
-  label: "末尾位置",
+  label: "pluginOptions.end",
   value: "end"
 }, {
-  label: "第 N 个字符之后",
+  label: "pluginOptions.afterIndexN",
   value: "afterIndexN"
 }, {
-  label: "倒数 N 个字符之前",
+  label: "pluginOptions.beforeIndexN",
   value: "beforeIndexN"
 }, {
-  label: "XX 字符串之后",
+  label: "pluginOptions.afterStr",
   value: "afterStr"
 },
 {
-  label: "XX 字符串之前",
+  label: "pluginOptions.beforeStr",
   value: "beforeStr"
 }]
 
 const insertContentTypeOptions = [{
-  label: "阿拉伯数字",
+  label: "pluginOptions.digit",
   value: "digit"
 }, {
-  label: "小写中文数字",
+  label: "pluginOptions.lowerChinese",
   value: "lowerChinese"
 }, {
-  label: "大写中文数字",
+  label: "pluginOptions.upperChinese",
   value: "upperChinese"
 }, {
-  label: "英文小写字母",
+  label: "pluginOptions.lowerChar",
   value: "lowerChar"
 }, {
-  label: "英文大写字母",
+  label: "pluginOptions.upperChar",
   value: "upperChar"
 }]
 

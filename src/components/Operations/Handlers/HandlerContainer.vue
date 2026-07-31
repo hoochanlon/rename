@@ -2,9 +2,9 @@
   <div>
 
     <div class="handler-settings">
-      <el-checkbox v-model="enabled" label="启用规则" border></el-checkbox>
-      <el-tooltip content="默认情况下，只处理不包含后缀名的文件名部分" placement="top">
-        <el-checkbox v-model="containExt" label="同时处理后缀名" border></el-checkbox>
+      <el-checkbox v-model="enabled" :label="t('pluginCommon.enableRule')" border></el-checkbox>
+      <el-tooltip :content="t('pluginCommon.includeExtensionTip')" placement="top">
+        <el-checkbox v-model="containExt" :label="t('pluginCommon.includeExtension')" border></el-checkbox>
       </el-tooltip>
 
     </div>
@@ -19,9 +19,12 @@
 <script lang="ts" setup>
 import { useFileStore } from "@/store/files"
 import { storeToRefs } from "pinia"
+import { useI18n } from "vue-i18n"
 
 import HandlerFactory from '@/lib/handler/HandlerFactory';
 import { useRenameHandler } from './handler.flow';
+
+const { t } = useI18n()
 
 // 动态组件，根据当前选中的重命名操作，显示对应 UI
 const { currentHandler } = defineProps<{
@@ -77,12 +80,9 @@ watch(filteredFiles, () => {
 
 <style lang="less" scoped>
 .handler-settings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
   margin: 4px 0 12px 0;
-
-  &>label {
-    margin-right: 12px;
-  }
-
 }
 </style>
-

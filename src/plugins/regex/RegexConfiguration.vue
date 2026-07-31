@@ -1,12 +1,14 @@
 <template>
   <div class="container">
-    <el-input style="max-width: 80vw;" v-model="pattern"
-      placeholder="search value, 正则表达式，可以使用 js 的正则字面量形式，如 /\d\d/i ，或者直接写正则表达式，如 \d\d"></el-input>
-    <el-input style="max-width: 80vw;" v-model="newStr" placeholder="replace value, 新字符串,可以使用反向引用"></el-input>
+    <el-input style="max-width: 80vw;" v-model="pattern" :placeholder="t('pluginOptions.regexSearch')"></el-input>
+    <el-input style="max-width: 80vw;" v-model="newStr" :placeholder="t('pluginOptions.regexReplace')"></el-input>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const pattern = ref("")
 const newStr = ref("")

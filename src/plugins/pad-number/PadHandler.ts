@@ -1,5 +1,6 @@
 import RenameHandlerBase from "@/lib/handler/RenameHandlerBase"
 import { importPluginComponent } from "../component"
+import i18n from "@/i18n"
 
 interface IPadHandlerOptions {
   /**
@@ -19,7 +20,9 @@ interface IPadHandlerOptions {
 }
 
 class Handler extends RenameHandlerBase<IPadHandlerOptions> implements IRenameHandler {
-  public title: string = "序号补齐"
+  public get title(): string {
+    return i18n.global.t('handlers.pad-number')
+  }
   public component: Component = importPluginComponent("pad-number", "PadConfiguration")
 
   public sortHint = 3

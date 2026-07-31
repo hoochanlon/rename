@@ -1,75 +1,75 @@
 export const filterTypeOptions: { label: string; value: FileFilterType }[] = [
   {
-    label: "包含文件",
+    label: "filter.includeFile",
     value: "include"
   },
   {
-    label: "排除文件",
+    label: "filter.excludeFile",
     value: "exclude"
   }
 ]
 
 export const matchOptions: { label: string; value: FileFilterProp }[] = [
   {
-    label: "文件名",
+    label: "filter.filename",
     value: "filename"
   },
   {
-    label: "后缀名",
+    label: "filter.extension",
     value: "extension"
   },
   {
-    label: "文件大小",
+    label: "filter.filesize",
     value: "size"
   },
   {
-    label: "修改时间",
+    label: "filter.modifyTime",
     value: "modifyTime"
   }
 ]
 
 export const stringPredicateOptions: PredicateItem[] = [
   {
-    label: "包含",
+    label: "filter.contains",
     value: "contains"
   },
   {
-    label: "不包含",
+    label: "filter.notContains",
     value: "notContains"
   },
   {
-    label: "开始于",
+    label: "filter.startsWith",
     value: "startsWith"
   },
   {
-    label: "结束于",
+    label: "filter.endsWith",
     value: "endsWith"
   },
   {
-    label: "等于",
+    label: "filter.equals",
     value: "equals"
   }
 ]
 
 export const numberPredicateOptions: PredicateItem[] = [
   {
-    label: "大于",
+    label: "filter.greaterThan",
     value: "gt"
   },
   {
-    label: "大于等于",
+    label: "filter.greaterOrEqual",
     value: "ge"
   },
   {
-    label: "小于",
+    label: "filter.lessThan",
     value: "lt"
   },
   {
-    label: "小于等于",
+    label: "filter.lessOrEqual",
     value: "le"
   },
   {
-    label: "等于",
+    label: "filter.equals",
     value: "eq"
   }
 ]
