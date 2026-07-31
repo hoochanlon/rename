@@ -5,8 +5,7 @@
 基于浏览器的本地批量文件重命名工具，所有操作完全在浏览器内完成，不上传任何文件到服务器。
 
 > [!important]
-> 感谢原作者[JasonGrass](https://github.com/JasonGrass)的技术支持与部署指导：
-> * [原始仓库](https://github.com/JasonGrass/rename)
+> 感谢原作者[JasonGrass](https://github.com/JasonGrass)的技术支持与部署指导：[原始仓库 JasonGrass/rename](https://github.com/JasonGrass/rename)
 
 ## ✨ 特性
 
